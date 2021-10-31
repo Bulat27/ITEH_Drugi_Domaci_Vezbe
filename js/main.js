@@ -100,9 +100,14 @@ $('#izmeniForm').submit(function () {
     const $inputs = $form.find('input, select, button, textarea');
     const serializedData = $form.serialize();
     console.log(serializedData);
-    $inputs.prop('disabled', true);
+    // $inputs.prop('disabled', true);
 
     // kreirati request za UPDATE handler
+    request = $.ajax({
+        url: 'handler/update.php',
+        type: 'post',
+        data: serializedData,
+    });
 
     request.done(function (response, textStatus, jqXHR) {
 
@@ -110,7 +115,7 @@ $('#izmeniForm').submit(function () {
         if (response === 'Success') {
             console.log('Kolokvijum je izmenjen');
             location.reload(true);
-            //$('#izmeniForm').reset;
+            $('#izmeniForm').reset;
         }
         else console.log('Kolokvijum nije izmenjen ' + response);
         console.log(response);
